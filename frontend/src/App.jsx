@@ -12,7 +12,7 @@ import useFetch from "./hooks/useFetch";
 function App() {
   const item = items[0];
   console.log(items);
-  const { data } = useFetch(import.meta.env.VITE_API_URL + "/api/courses");
+  const { data } = useFetch(import.meta.env.VITE_API_URL + "api/courses");
   console.log("data", data);
   return (
     <>
