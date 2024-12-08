@@ -13,7 +13,7 @@ function App() {
   const item = items[0];
   console.log(items);
   const { data } = useFetch(import.meta.env.VITE_API_URL + "/api/courses");
-  console.log(data);
+  console.log("data", data);
   return (
     <>
       <Login />
