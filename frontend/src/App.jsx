@@ -25,7 +25,7 @@ function App() {
     subcategory: "Backend",
     duration: 40,
     price: 120.5,
-    instructor: "ObjectId('648e1234567a9b23cdef4567')",
+    instructor: "648e1234567a9b23cdef4567",
     startDate: "2024-12-01T00:00:00.000+00:00",
     endDate: "2025-01-31T23:59:59.000+00:00",
     status: "active",
@@ -33,13 +33,15 @@ function App() {
     image: "https://example.com/images/nodejs-course.jpg",
     video: "https://example.com/videos/intro-nodejs.mp4",
   };
-  const { data, error } = useFetch(apiURL, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: { "Content-Type": "application/json" },
-  });
-  //const { data, error } = useFetch(apiURL);
-
+  // const { data, error } = useFetch(apiURL, {
+  //   method: "POST",
+  //   body: JSON.stringify(body),
+  //   headers: { "Content-Type": "application/json" },
+  // });
+  const { data, error } = useFetch(apiURL);
+  // const { data, error } = useFetch(apiURL + "/675624b5e7a123d1e0a73d26", {
+  //   method: "DELETE",
+  // });
   console.log(data, error);
   return (
     <>

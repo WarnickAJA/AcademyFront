@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 export default function useFetch(url, options = {}) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [controller, setController] = useState(null);
+
+  // Memorizar las opciones para evitar renders innecesarios
+  const memoizedOptions = useMemo(() => options, [JSON.stringify(options)]);
 
   useEffect(() => {
     if (!url) {
@@ -14,11 +17,12 @@ export default function useFetch(url, options = {}) {
     const abortController = new AbortController();
     setController(abortController);
     setLoading(true);
+    setError(null);
 
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
-          ...options,
+          ...memoizedOptions,
           signal: abortController.signal,
         });
 
@@ -38,17 +42,14 @@ export default function useFetch(url, options = {}) {
       }
     };
 
-    if (url) {
-      fetchData();
-    }
+    fetchData();
 
     return () => {
-      if (controller) {
-        controller.abort();
-      }
+      abortController.abort();
     };
-  }, [url, options]);
+  }, [url, memoizedOptions]);
 
+  // Función para cancelar la solicitud
   const handleCancelRequest = () => {
     if (controller) {
       controller.abort();
